@@ -1,11 +1,16 @@
 # db2haip
 # db2 HADR – highly available virtual ip address manager script
-•	This settings must be implemented on both the primary and standby server. The settings need to be the very similar (or same in specific cases) on both the systems
+The concept is, that for each HADR pair we assign a virtual ip address, which is needed to be registered to DNS or clients' host files. The client applications connect to the virtual ip.
+The script – quite simple – checks if a server is a HADR Primary. If so it assigns the virtual ip to the host, if not, then it removes ip from the host.
 
-•	Create a timer service at operating system level
-file path and name: /etc/system/system/db2haip.timer
-file content as below
-you may adjust the OnCalendar line to change the default every minute value to a longer one (00 means every minute)
+This settings must be implemented on both the primary and standby server. The settings need to be the very similar (or same in specific cases) on both the systems
+
+Steps to set up:
+
+•	Create a timer service at operating system level (as root)
+- file path and name: /etc/system/system/db2haip.timer
+- file content as below
+- you may adjust the OnCalendar line to change the default every minute value to a longer one (00 means every minute)
 ```
 [Unit]
 Description=Timer service for the db2haip service
@@ -20,9 +25,9 @@ AccuracySec=1s
 WantedBy=timers.target
 ```
 •	Create service unit file
-file path and name: /etc/system/system/db2haip.service
-file content as below
-may be the script location is not perfect and may be adjusted (ExecStart)
+- file path and name: /etc/system/system/db2haip.service
+- file content as below
+- may be the script location is not perfect and may be adjusted (ExecStart)
 ```
 [Unit]
 Description=Service assigns Virtual IP to the db2 HADR primary system
@@ -36,9 +41,9 @@ ExecStart=/root/db2haip.sh
 WantedBy=multi-user.target
 ```
 •	Create the worker script
-file path and name: /root/db2haip.sh – as in the service file
-file content as below
-please fix the static variables, like virtual address, mask and network device
+- file path and name: /root/db2haip.sh – as in the service file
+- file content as below
+- please adjust the static variables, like virtual address, mask and network device
 ```
 #!/bin/bash
 
