@@ -8,7 +8,7 @@ This settings must be implemented on both the primary and standby server. The se
 Steps to set up:
 
 •	Create a timer service at operating system level (as root)
-- file path and name: /etc/system/system/db2haip.timer
+- file path and name: /etc/systemd/system/db2haip.timer
 - file content as below
 - you may adjust the OnCalendar line to change the default every minute value to a longer one (00 means every minute)
 ```
