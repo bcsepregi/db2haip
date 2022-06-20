@@ -1,0 +1,11 @@
+[Unit]
+Description=Timer service for the db2haip service
+Requires=db2haip.service
+
+[Timer]
+Unit=db2haip.service
+OnCalendar=*-*-* *:*:00
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target
