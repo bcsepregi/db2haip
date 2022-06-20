@@ -5,7 +5,7 @@
 •	Create a timer service at operating system level
 file path and name: /etc/system/system/db2haip.timer
 file content as below
-you may adjust the OnCalendar line to change the default every minute value to a longer one
+you may adjust the OnCalendar line to change the default every minute value to a longer one (00 means every minute)
 ```
 [Unit]
 Description=Timer service for the db2haip service
@@ -74,10 +74,13 @@ fi
 ```
 •	Make the worker script executable:
 `chmod +x /root/db2haip.sh`
+
 •	Start the timer service
 `systemctl start myMonitor.service`
+
 •	Enable the timer service
 `systemctl enable myMonitor.service`
+
 •	You may montor the service log using the below command:
 `journalctl -S today -f -u myMonitor.service`
 
