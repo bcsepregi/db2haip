@@ -6,6 +6,7 @@
 file path and name: /etc/system/system/db2haip.timer
 file content as below
 you may adjust the OnCalendar line to change the default every minute value to a longer one
+```
 [Unit]
 Description=Timer service for the db2haip service
 Requires=db2haip.service
@@ -17,11 +18,12 @@ AccuracySec=1s
 
 [Install]
 WantedBy=timers.target
-
+```
 •	Create service unit file
 file path and name: /etc/system/system/db2haip.service
 file content as below
 may be the script location is not perfect and may be adjusted (ExecStart)
+```
 [Unit]
 Description=Service assigns Virtual IP to the db2 HADR primary system
 Wants=myMonitor.timer
@@ -32,11 +34,12 @@ ExecStart=/root/db2haip.sh
 
 [Install]
 WantedBy=multi-user.target
-
+```
 •	Create the worker script
 file path and name: /root/db2haip.sh – as in the service file
 file content as below
 please fix the static variables, like virtual address, mask and network device
+```
 #!/bin/bash
 
 # static data
@@ -68,13 +71,13 @@ else
     echo vip removed
   fi
 fi
-
+```
 •	Make the worker script executable:
-chmod +x /root/db2haip.sh
+`chmod +x /root/db2haip.sh`
 •	Start the timer service
-systemctl start myMonitor.service
+`systemctl start myMonitor.service`
 •	Enable the timer service
-systemctl enable myMonitor.service
+`systemctl enable myMonitor.service`
 •	You may montor the service log using the below command:
-journalctl -S today -f -u myMonitor.service
+`journalctl -S today -f -u myMonitor.service`
 
