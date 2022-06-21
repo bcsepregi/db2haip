@@ -7,7 +7,7 @@ and also needs to be able to run a `db2 select` command to get information of db
 
 The script – quite simple – checks if a server is a HADR Primary. If so it assigns the virtual ip to the host, if not, then it removes ip from the host.
 
-This settings must be implemented on both the primary and standby server. The settings need to be the very similar (or same in specific cases) on both the systems
+This settings must be implemented on both the primary and standby server. The settings need to be the very similar (or the same in some cases) on both the systems
 
 Steps to set up:
 
