@@ -1,6 +1,10 @@
 # db2haip
 # db2 HADR – highly available virtual ip address manager script
 The concept is, that for each HADR pair we assign a virtual ip address, which is needed to be registered to DNS or clients' host files. The client applications connect to the virtual ip.
+
+The scripts are needed to be run as root (or a user, which is able to use the `ip a add/delete` commands
+and also needs to be able to run a `db2 select` command to get information of db2 hadr status.
+
 The script – quite simple – checks if a server is a HADR Primary. If so it assigns the virtual ip to the host, if not, then it removes ip from the host.
 
 This settings must be implemented on both the primary and standby server. The settings need to be the very similar (or same in specific cases) on both the systems
